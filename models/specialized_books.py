@@ -3,7 +3,7 @@ from .base_book import BaseBook
 
 class PaperBook(BaseBook):
     def __init__(self,title, author, isbn, pages, types, location):
-        super().__init__(self, title, author, isbn, pages)
+        super().__init__(title, author, isbn, pages)
         self.__types = types
         self.__location = location
 
@@ -18,7 +18,7 @@ class PaperBook(BaseBook):
 
 class EBook(BaseBook):
     def __init__(self,title, author, isbn, pages, types, ftype, size):
-        super().__init__(self, title, author, isbn, pages)
+        super().__init__(title, author, isbn, pages)
         self.__types = types
         self.__ftype = ftype
         self.__size = size
