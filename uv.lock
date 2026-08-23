@@ -3,6 +3,6 @@ revision = 3
 requires-python = ">=3.13"
 
 [[package]]
-name = "assignment-01-library-cli"
+name = "python-final-project-seoinbae"
 version = "0.1.0"
 source = { editable = "." }
