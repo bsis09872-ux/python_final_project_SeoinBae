@@ -76,3 +76,6 @@
 - 실행 및 화면 캡쳐
 - README.md 작성
 - 최종본 url로 제출
+
+- windows 환경에서 `git pull origin main` + `uv sync` 성공
+- 
