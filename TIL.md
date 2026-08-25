@@ -72,10 +72,19 @@
   - 현재 시각 오전 1시 1분... 머리가 안돌아 간다.. 하기 싫은건가... 일단 자고 내일 끝내자!!
 
 
-### Date: 2026-08-24 (final deadline)
-- 실행 및 화면 캡쳐
-- README.md 작성
-- 최종본 url로 제출
-
+### Date: 2026-08-24 (final deadline - 제출 못함)
 - windows 환경에서 `git pull origin main` + `uv sync` 성공
+- 새로 정리한 개념 (자세한 TIL은 ML의 20260824 파일에 확인)
+        - `dict.items()` → key와 value를 함께 순회
+        - `return A, B` → 여러 값 반환, 호출부에서 unpacking 가능
+        - `Class` → 설계도
+        - `Object / Instance` → 클래스로 실제 생성된 값
+        - `book.display_info()` → 객체의 메서드 호출
+        - `book.get_isbn()` → 객체의 private 데이터에 Getter로 접근
+        - `isbn_set` → ISBN 존재 여부 / 중복 확인
+        - `books` → 실제 `PaperBook`, `EBook` 객체 저장
+        - `return` → 함수 종료
+        - `print` → 출력만 수행
+
+### Date: 2026-08-25
 - 
