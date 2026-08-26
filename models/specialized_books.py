@@ -8,10 +8,9 @@ class PaperBook(BaseBook):
 
     def display_info(self):
         base_info = super().display_info()
-        return f"""[일반도서] {base_info}
-        위치: {self.__location} 층
-
-        """
+        
+    
+        return "[일반도서]\n%s\n위치: %s 층\n" % (base_info, self.__location)
 
 
 class EBook(BaseBook):
@@ -22,8 +21,10 @@ class EBook(BaseBook):
 
     def display_info(self):
         base_info = super().display_info()
-        return f"""[전자도서] {base_info}
-        형식: {self.__ftype}
-        크기: {self.__size} MB
 
-        """
+        return (
+            f"[전자도서]\n"
+            f"{base_info}"
+            f"형식: {self.__ftype}\n"
+            f"크기: {self.__size} MB\n"
+        )

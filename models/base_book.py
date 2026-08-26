@@ -30,12 +30,12 @@ class BaseBook:
         status = "대여 중" if self.__is_borrowed else "대여 가능"
 
 
-        return (f"""도서명: {self.__title}
-        저자: {self.__author}
-        ISBN: {self.__isbn}
-        쪽수: {self.__pages}
-        상태: [{status}]
-          """)
-    
+        return (
+    f"\n도서명: {self.__title}\n"
+    f"저자: {self.__author}\n"
+    f"ISBN: {self.__isbn}\n"
+    f"쪽수: {self.__pages}\n"
+    f"상태: [{status}]\n"
+)
 
   

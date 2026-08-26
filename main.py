@@ -1,4 +1,4 @@
-from utils.helper import validate_input_value, display_sub_menu_title, get_string, get_valid_integer, get_valid_booktype, get_float, validate_input_value2
+from utils.helper import validate_input_value, display_sub_menu_title, get_string, get_valid_integer, get_valid_booktype, get_float
 from models.specialized_books import PaperBook, EBook
 from models.base_book import *
 from data.books_info import book_info
@@ -101,74 +101,70 @@ def main():
         
         elif choice == 3: 
             display_sub_menu_title("도서 검색")
-            # isbn으로 검색하는거랑 제목으로 검색하기 저자명으로 검색하기 나누기!!
-            isbn = input("찾으시는 도서의 식별번호(ISBN)를 입력하세요.:")
 
-            if isbn in isbn_set:
-                for book in books:
-                    if book.get_isbn() == isbn:
-                        the_book_info = book.display_info()
-                        print(the_book_info)
-            
-            else: 
-                print("찾으시는 도서가 없습니다. 도서 식별 번호를 다시 확인하세요.")
-        
+            keyword = get_string("찾으시는 도서의 ISBN, 도서명 또는 저자명을 입력하세요.:")
+            found = False
+
+            for book in books:
+                if (
+                    book.get_isbn() == keyword
+                    or keyword in book.get_title()
+                    or keyword in book.get_author()
+
+                ):
+                    print(book.display_info())
+                    found = True
+
+            if found is False:
+                print("검색 결과가 없습니다.")      
 
 
         elif choice == 4: 
             display_sub_menu_title("도서 대여 / 반납")
+      
+            target_isbn = get_string("대여/반납을 희망하는 도서의 ISBN을 입력하세요.:")
 
-            while True:
-                print("""[도서 검색]
-                1. ISBN으로 검색
-                2. 도서명으로 검색
-                3. 저자명으로 검색""")
+            if target_isbn not in isbn_set:
+                print("해당 ISBN을 가진 도서를 찾을 수 없습니다.")
 
-                search_option =  validate_input_value2("검색 방식을 선택하시오: ")
+            else:
+                for book in books:
+                    if book.get_isbn() == target_isbn:
+                        target_info = book.display_info()
+                        target_book_status = book.get_status()
+                        print(target_info)
 
-                if search_option == 1:
-                    target_isbn = get_string("찾으시는 도서의 식별번호(ISBN)를 입력하세요.:")
+                        if target_book_status:
+                            print("해당 도서는 대여중인 도서입니다.")
+                            want_return = get_valid_integer("도서를 반납하시겠습니까?\n(예 = 1 , 아니오 = 2)\n:")
 
-                    if target_isbn not in isbn_set:
-                        print("해당 ISBN을 가진 도서를 찾을 수 없습니다.")
+                            if want_return == 1:
+                                 book.set_status(False)
+                                 print("[안내] 도서의 반납이 완료되었습니다. 감사합니다.")
 
-                    else:
-                        for book in books:
-                            if book.get_isbn() == target_isbn:
-                                handle_borrow_return()
-                                print(target_info)
+                            elif want_return == 2:
+                                print("[안내] 반납을 취소합니다.")
 
-                                if target_book_status is True:
-                                    print("해당 도서는 대여중입니다. 다른 이용자가 반납한 이후에 이용 가능합니다.")
+                            else:
+                                print("[경고] 올바른 숫자를 공백없이 입력해주세요")
 
-                                else:
-                                    print("해당 도서는 대여가 가능합니다.")
-                                    want = get_valid_integer("대여를 원하시나요?(예 = 1 , 아니오 = 2)")
-                                    if want == 1:
-                                        # 도서 대여
-                                        book.set_status() #false에서 true로 (대여중으로 표시)
-                                        print(f"다음의 도서 대출 신청이 완료되었습니다. 대출 기한은 30일 입니다.:\n{target_info}")
+                        else:
+                            print(f"[도서 정보] {target_info}\n해당 도서는 대여가 가능합니다.")
 
-                                    elif want == 2:
-                                        # 메인화면으로 돌아가기
-                                        continue
+                            want = get_valid_integer("도서 대여를 원하시나요?\n(예 = 1 , 아니오 = 2)\n:")
 
-                                    else:
-                                        print(f"[경고]-{e} 올바른 숫자를 공백없이 입력해주세요.")
+                            if want == 1:
+                                # 도서 대여
+                                book.set_status(True) 
+                                print(f"도서 대출이 완료되었습니다. 대출 기한은 30일 입니다.:\n{target_info}")
 
-                elif search_option == 2:
-                    target_title = get_string("찾으시는 도서명을 입력하세요.:")
-                    if target_title not in books:
-                        print("해당 제목의 도서를 찾을 수 없습니다.")
+                            elif want == 2:
+                                # 메인화면으로 돌아가기
+                                print("도서 대여를 취소합니다.")
+        
 
-                else: 
-
-                                
-
-
-
-
-
+                            else:
+                                print("[경고] 올바른 숫자를 공백없이 입력해주세요.") 
             
         elif choice == 5: 
             print("[안내] 도서 관리 시스템을 종료합니다.")
