@@ -37,11 +37,10 @@ def get_string(prompt):
     while True:
         try:
             info = input(prompt).strip()
+            return info
 
         except ValueError as e:
-            return f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다."
-
-        return info
+            print(f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
 
 
 # ==============================
@@ -55,11 +54,12 @@ def get_valid_integer(prompt):
     while True:
         try:
             num = int(input(prompt))
+            return num
 
         except ValueError as e:
             print(f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
 
-        return num
+        
 
 # 실수를 입력받아 반환
 # 전자책 파일 용량 등 소수값 입력에 사용
@@ -73,7 +73,6 @@ def get_float(prompt):
         except ValueError as e:
             print(f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
 
-        return info
 
 
 

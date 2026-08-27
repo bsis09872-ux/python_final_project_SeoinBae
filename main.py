@@ -139,10 +139,11 @@ def main():
                     if book.get_isbn() == target_isbn:
                         target_info = book.display_info()
                         target_book_status = book.get_status()
-                        print(target_info)
 
                         if target_book_status:
+                            print(f"📖 [도서 정보]\n{target_info}")
                             print("ℹ️ [안내] 해당 도서는 현재 대여 중입니다.")
+                            
                             want_return = get_valid_integer("📥 도서를 반납하시겠습니까?\n1. 예\n2. 아니오\n→ ")
 
                             if want_return == 1:
@@ -156,14 +157,17 @@ def main():
                                 print("⚠️ [경고] 올바른 번호를 입력해주세요.")
 
                         else:
-                            print(f"📖 [도서 정보]\n{target_info}\n\nℹ️ [안내] 해당 도서는 대여가 가능합니다")
+                            print(f"📖 [도서 정보]\n{target_info}")
+                            print("ℹ️ [안내] 해당 도서는 대여가 가능합니다.")
 
                             want = get_valid_integer("📤 도서를 대여하시겠습니까?\n1. 예\n2. 아니오\n→ ")
 
                             if want == 1:
                                 # 도서 대여
                                 book.set_status(True) 
-                                print(f"✅ [완료] 도서 대출이 완료되었습니다. 대출 기한은 30일입니다.\n{target_info}")
+                                updated_info = book.display_info()
+                                print(f"✅ [완료] 도서 대출이 완료되었습니다.\n대출 기한은 30일입니다.")
+                                print(updated_info)
 
                             elif want == 2:
                                 # 메인화면으로 돌아가기
