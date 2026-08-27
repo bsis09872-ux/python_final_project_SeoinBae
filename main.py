@@ -57,36 +57,43 @@ def main():
 
         if choice == 1:
             display_sub_menu_title("도서 등록")
-            isbn = (input("(ISBN) 등록을 원하는 도서의 고유 식별 번호를 입력하세요.:"))
+            isbn = (input("📌 등록할 도서의 ISBN을 입력하세요.\n→ "))
 
             if isbn in isbn_set:
-                print(f"등록하신 코드({isbn})는 기존 도서 목록에 이미 등록이 되어 있는 코드입니다.")
+                print(f"⚠️ 등록하신 ISBN({isbn})은 이미 등록된 도서입니다.")
 
             else:
-                print(f"ISBN: {isbn} - 등록을 원하는 도서의 정보를 입력해주세요.")
-                title = get_string("도서명을 입력하세요:")
-                author = get_string("저자명을 입력하세요.:")
-                pages = get_valid_integer("페이지수를 입력하세요.:")
+                print(f"✅ ISBN: {isbn}\n도서 정보를 입력해주세요.")
+                title = get_string("📖 도서명을 입력하세요.\n→ ")
 
-                book_type = get_valid_booktype("등록을 원하시는 도서 유형에 해당하는 번호를 입력하시오.\n(1) 일반도서\n(2) 전자도서\n :")
+                author = get_string("✍️ 저자명을 입력하세요.\n→ ")
+
+                pages = get_valid_integer("📄 페이지 수를 입력하세요.\n→ ")
+
+                book_type = get_valid_booktype(
+                    "📚 등록할 도서 유형을 선택하세요.\n"
+                    "1. 일반도서\n"
+                    "2. 전자도서\n"
+                    "→ "
+                )
 
                 if book_type == 1:
-                    location = get_valid_integer("도서 위치를 나타내는 층수를 숫자로 입력해주세요.:")
+                    location = get_valid_integer( "🏢 도서가 위치한 층수를 숫자로 입력하세요.\n→ ")
                     new_book = PaperBook(title, author, isbn, pages, location)
                     books.append(new_book)
                     isbn_set.add(isbn)
-                    print("일반 도서 등록이 완료되었습니다.")
+                    print("✅ [완료] 일반 도서 등록이 완료되었습니다.")
 
                 elif book_type == 2:
-                    ftype = get_string("해당 전자 도서의 접근 가능한 파일 형식을 입력하세요:")
-                    size = get_float("해당 전자 도서 파일의 용량을 입력하세요.:")
+                    ftype = get_string("💾 전자 도서의 파일 형식을 입력하세요. (예: PDF, EPUB)\n→ ")
+                    size = get_float("💽 전자 도서의 파일 용량을 입력하세요. (MB)\n→ ")
                     new_book = EBook(title, author, isbn, pages, ftype, size)
                     books.append(new_book)
                     isbn_set.add(isbn)
-                    print("전자 도서 등록이 완료되었습니다.")
+                    print("✅ [완료] 전자 도서 등록이 완료되었습니다.")
 
                 else: 
-                    print("[안내] 입력하신 도서의 유형을 다시 선택해주세요.")
+                    print("⚠️ [경고] 도서 유형을 다시 선택해주세요.")
   
                 
 
@@ -102,7 +109,7 @@ def main():
         elif choice == 3: 
             display_sub_menu_title("도서 검색")
 
-            keyword = get_string("찾으시는 도서의 ISBN, 도서명 또는 저자명을 입력하세요.:")
+            keyword = get_string( "🔎 찾으시는 도서의 ISBN, 도서명 또는 저자명을 입력하세요.\n→ ")
             found = False
 
             for book in books:
@@ -116,16 +123,16 @@ def main():
                     found = True
 
             if found is False:
-                print("검색 결과가 없습니다.")      
+                print("ℹ️ [안내] 검색 결과가 없습니다.")      
 
 
         elif choice == 4: 
             display_sub_menu_title("도서 대여 / 반납")
       
-            target_isbn = get_string("대여/반납을 희망하는 도서의 ISBN을 입력하세요.:")
+            target_isbn = get_string("📚 대여/반납할 도서의 ISBN을 입력하세요.\n→ ")
 
             if target_isbn not in isbn_set:
-                print("해당 ISBN을 가진 도서를 찾을 수 없습니다.")
+                print("ℹ️ [안내] 해당 ISBN을 가진 도서를 찾을 수 없습니다.")
 
             else:
                 for book in books:
@@ -135,43 +142,43 @@ def main():
                         print(target_info)
 
                         if target_book_status:
-                            print("해당 도서는 대여중인 도서입니다.")
-                            want_return = get_valid_integer("도서를 반납하시겠습니까?\n(예 = 1 , 아니오 = 2)\n:")
+                            print("ℹ️ [안내] 해당 도서는 현재 대여 중입니다.")
+                            want_return = get_valid_integer("📥 도서를 반납하시겠습니까?\n1. 예\n2. 아니오\n→ ")
 
                             if want_return == 1:
                                  book.set_status(False)
-                                 print("[안내] 도서의 반납이 완료되었습니다. 감사합니다.")
+                                 print("✅ [완료] 도서 반납이 완료되었습니다. 감사합니다.")
 
                             elif want_return == 2:
-                                print("[안내] 반납을 취소합니다.")
+                                print("ℹ️ [안내] 도서 반납을 취소합니다.")
 
                             else:
-                                print("[경고] 올바른 숫자를 공백없이 입력해주세요")
+                                print("⚠️ [경고] 올바른 번호를 입력해주세요.")
 
                         else:
-                            print(f"[도서 정보] {target_info}\n해당 도서는 대여가 가능합니다.")
+                            print(f"📖 [도서 정보]\n{target_info}\n\nℹ️ [안내] 해당 도서는 대여가 가능합니다")
 
-                            want = get_valid_integer("도서 대여를 원하시나요?\n(예 = 1 , 아니오 = 2)\n:")
+                            want = get_valid_integer("📤 도서를 대여하시겠습니까?\n1. 예\n2. 아니오\n→ ")
 
                             if want == 1:
                                 # 도서 대여
                                 book.set_status(True) 
-                                print(f"도서 대출이 완료되었습니다. 대출 기한은 30일 입니다.:\n{target_info}")
+                                print(f"✅ [완료] 도서 대출이 완료되었습니다. 대출 기한은 30일입니다.\n{target_info}")
 
                             elif want == 2:
                                 # 메인화면으로 돌아가기
-                                print("도서 대여를 취소합니다.")
+                                print("ℹ️ [안내] 도서 대여를 취소합니다.")
         
 
                             else:
-                                print("[경고] 올바른 숫자를 공백없이 입력해주세요.") 
+                                print("⚠️ [경고] 올바른 번호를 입력해주세요.") 
             
         elif choice == 5: 
-            print("[안내] 도서 관리 시스템을 종료합니다.")
+            print("ℹ️ [안내] 도서 관리 시스템을 종료합니다.")
             break
 
         else:
-            print("[오류] 원하시는 메뉴의 번호를 공백 없이 숫자로만 입력해주세요.")
+            print("⚠️ [경고] 메뉴에 있는 번호를 공백 없이 입력해주세요.")
      
 
 

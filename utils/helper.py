@@ -39,13 +39,9 @@ def get_string(prompt):
             info = input(prompt).strip()
 
         except ValueError as e:
-            return f"[경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다."
+            return f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다."
 
-        if info == "":
-            print("입력하신 값이 없거나 올바르지 않습니다.")
-
-        else:
-            return info
+        return info
 
 
 # ==============================
@@ -61,7 +57,7 @@ def get_valid_integer(prompt):
             num = int(input(prompt))
 
         except ValueError as e:
-            print(f"[경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
+            print(f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
 
         return num
 
@@ -75,7 +71,9 @@ def get_float(prompt):
             return info
     
         except ValueError as e:
-            print(f"[경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
+            print(f"⚠️ [경고]-{e}: 입력하신 값이 없거나 올바르지 않습니다.")
+
+        return info
 
 
 
@@ -95,10 +93,10 @@ def validate_input_value(prompt):
             return choice
 
         else:
-            print("1~5 사이의 공백 없는 숫자로만 입력 바랍니다.")
+            print("⚠️ [경고] 1~5 사이의 공백 없는 숫자로만 입력 바랍니다.")
 
     except ValueError as e:
-        print(f"[경고]{e} - 1~5 사이의 공백 없는 숫자로만 입력 바랍니다.")
+        print(f"⚠️ [경고]{e} - 1~5 사이의 공백 없는 숫자로만 입력 바랍니다.")
     
 
 # 도서 유형 메뉴에서 1 또는 2를 입력받아 반환
@@ -113,9 +111,9 @@ def get_valid_booktype(prompt):
             return option_num
 
         else:
-            return "메뉴에 있는 숫자를 공백 없이 입력 바랍니다."
+            return "⚠️ [경고] 메뉴에 있는 숫자를 공백 없이 입력 바랍니다."
 
     except ValueError as e:
-        print(f"[경고]{e} - 메뉴에 있는 숫자를 공백 없이 입력 바랍니다.")
+        print(f"⚠️ [경고]{e} - 메뉴에 있는 숫자를 공백 없이 입력 바랍니다.")
 
 # -------------------------------------------------------

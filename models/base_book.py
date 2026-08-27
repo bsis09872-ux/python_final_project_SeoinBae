@@ -35,7 +35,7 @@ class BaseBook:
     f"저자: {self.__author}\n"
     f"ISBN: {self.__isbn}\n"
     f"쪽수: {self.__pages}\n"
-    f"상태: [{status}]\n"
+    f"상태: [{status}]"
 )
 
   
